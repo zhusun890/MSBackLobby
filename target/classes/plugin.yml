@@ -1,0 +1,10 @@
+name: "MSBackLobby"
+version: "0.0.1"
+main: "cn.monshine.main"
+api-version: 1.13
+author: "zhusun890"
+commands:
+  hub:
+    aliases: [lobby]
+  transerver:
+permissions:
