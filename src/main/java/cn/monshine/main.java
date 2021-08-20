@@ -26,14 +26,16 @@ public class main extends JavaPlugin implements Listener {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] commandArgs) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] commandArgs) {
 		if (command.getName().equalsIgnoreCase("transerver")) {
 			try {
-				if (commandArgs[0] == null) {
-					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cUsage: /transerver <Server name>"));
+				if (commandArgs[0] == "") {
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cUsage: /transerver <Server name>"));
+				} else if (config.getString(commandArgs[0]) == null) {
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cInvaild Server!"));
 				} else {
-					commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bConnecting you to server &3") + commandArgs[0] + "...");
-					bungeeUtils.connectToServer((Player) commandSender, commandArgs[0]);
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bConnecting you to server &3") + commandArgs[0] + "...");
+					bungeeUtils.connectToServer((Player) sender, commandArgs[0]);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -42,8 +44,8 @@ public class main extends JavaPlugin implements Listener {
 		}
 		if (command.getName().equalsIgnoreCase("hub")) {
 			try {
-				commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bConnecting to &3Lobby..."));
-				bungeeUtils.connectToServer((Player) commandSender, config.getString("Server.lobbyServerName"));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bConnecting to &3Lobby..."));
+				bungeeUtils.connectToServer((Player) sender, config.getString("Server.lobbyServerName"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
